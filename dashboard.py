@@ -21,3 +21,4 @@ if st.button("Trigger Agent"):
 
 st.subheader("Agent Thought Logs")
 st.info("Waiting for agent activity...")
+
