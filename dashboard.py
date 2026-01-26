@@ -20,5 +20,4 @@ if st.button("Trigger Agent"):
         st.success(response.json()["status"])
 
 st.subheader("Agent Thought Logs")
-# In a real setup, you'd stream logs from your Docker container here
 st.info("Waiting for agent activity...")
