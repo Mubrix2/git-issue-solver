@@ -4,11 +4,10 @@ An end-to-end Multi-Agent System (MAS) that autonomously triages, fixes, and ver
 
 ---
 
-## 📺 Project Demo 
+# 🤖 Project Demo
+Here is the autonomous agent in action:
 
-<p>
-  <video src="./asset/demo.mp4" width="100%" controls autoplay loop muted></video>
-</p>
+![Watch the demo](./asset/demo.mp4)
 
 ## 🏗️ System Architecture
 
