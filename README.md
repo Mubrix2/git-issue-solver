@@ -1,22 +1,85 @@
-# git-issue-solver
-
 # 🤖 Autonomous GitHub Issue Solver (Agentic AI)
 
-An end-to-end Agentic AI system that autonomously triages, fixes, and tests GitHub issues using a Multi-Agent architecture.
+An end-to-end Multi-Agent System (MAS) that autonomously triages, fixes, and verifies GitHub issues using a **Self-Healing** code loop.
 
-## 🌟 Key Features
-- **Multi-Agent Orchestration**: Powered by Microsoft AutoGen (Coder & Reviewer agents).
-- **Secure Sandboxing**: LLM-generated code is executed inside isolated **Docker** containers to prevent system harm.
-- **Event-Driven**: Integrated with **FastAPI** to handle GitHub Webhooks in real-time.
-- **Self-Healing**: The Reviewer agent provides feedback to the Coder if tests fail, triggering an autonomous fix loop.
+---
 
-## 🚀 Technical Architecture
+## 📺 Project Demo 
 
-1. GitHub Webhook triggers `/webhook`.
-2. **Coder Agent** analyzes the issue and codebase.
-3. **Reviewer Agent** runs the code in a Docker sandbox.
-4. If successful, the agent prepares a Pull Request.
+("./VID-20260125-WA0019.mp4")
 
-## 🛠️ Setup
-1. `docker build -t issue-agent .`
-2. `docker run -p 8000:8000 --env-file .env issue-agent`
+## 🏗️ System Architecture
+
+This project implements a **Microservices Architecture** to ensure scalability and security.
+
+1. **Transport Layer**: FastAPI endpoint listens for GitHub Webhooks.
+2. **Orchestration Layer**:
+* **Coder Agent**: Analyzes codebase and proposes Python fixes.
+* **Reviewer Agent**: Validates logic and runs test scripts.
+
+
+3. **Security Layer (The Sandbox)**: All LLM-generated code is executed inside isolated **Docker Containers** using Docker-in-Docker (DinD) patterns.
+4. **Observability Layer**: A Streamlit dashboard provides a "Control Tower" view of agent reasoning and logs.
+
+---
+
+## 🛠️ Tech Stack
+
+* **AI Engine**: GPT-4o / GPT-4o-mini (via GitHub Models API)
+* **Agent Framework**: Microsoft AutoGen (AG2)
+* **Backend**: FastAPI & Uvicorn
+* **Frontend**: Streamlit
+* **DevOps**: Docker & Docker Compose
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+
+* Docker Desktop installed and running.
+* A GitHub Personal Access Token (for the GitHub Models API).
+
+### 2. Environment Setup
+
+Create a `.env` file in the root directory:
+
+```bash
+GITHUB_TOKEN=your_github_token_here
+AUTOGEN_USE_DOCKER=True
+
+```
+
+### 3. Run with Docker Compose
+
+One command to spin up the entire ecosystem:
+
+```bash
+docker compose up --build
+
+```
+
+* **FastAPI**: `http://localhost:8000`
+* **Dashboard**: `http://localhost:8501`
+
+---
+
+## 🛡️ Engineering Best Practices
+
+* **Self-Healing Loops**: If the Reviewer detects a crash, it provides the stack trace back to the Coder for an iterative fix.
+* **Container Isolation**: Prevents "Prompt Injection" attacks from executing malicious code on the host machine.
+* **Dependency Pinning**: Uses a strictly versioned `requirements.txt` to prevent environment drift.
+
+---
+
+## 📂 Project Structure
+
+```text
+├── .github/          # CI/CD Workflows
+├── sandbox/          # Isolated directory for AI code execution
+├── main.py           # FastAPI Webhook Entrypoint
+├── agents.py         # Multi-Agent Logic & Configuration
+├── dashboard.py      # Streamlit Observability UI
+├── Dockerfile        # API Container Blueprint
+├── docker-compose.yml# Multi-service Orchestrator
+└── requirements.txt  # Pinned Dependencies
