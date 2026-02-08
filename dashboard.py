@@ -13,7 +13,7 @@ issue_text = st.text_area("Simulate an Issue Description")
 if st.button("Trigger Agent"):
     with st.spinner("Agent is analyzing and fixing..."):
         # This calls your FastAPI backend
-        response = requests.post("http://localhost:8000/webhook", json={
+        response = requests.post("http://api:8000/webhook", json={
             "action": "opened",
             "issue": {"body": issue_text}
         })
