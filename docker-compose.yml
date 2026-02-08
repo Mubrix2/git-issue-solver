@@ -8,6 +8,8 @@ services:
 
   dashboard:
     image: python:3.11-slim
+    depends_on:
+      - api  # Ensures the API starts first
     command: sh -c "pip install streamlit requests && streamlit run dashboard.py"
     ports:
       - "8501:8501"

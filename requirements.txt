@@ -1,5 +1,6 @@
 # Use the meta-package to ensure all sub-dependencies are included
-ag2[openai]==0.3.1  
+# Use a stable version of the AG2 meta-package
+ag2[openai]>=0.7.0
 fastapi==0.115.0
 uvicorn[standard]==0.32.0
 streamlit==1.53.0
